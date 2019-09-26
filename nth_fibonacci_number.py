@@ -46,6 +46,6 @@ for i in range(15):
   print(Solution().fibonacci(i))
 
 print(Solution().fibonacci(-2))
-# print(Solution().fibonacci("some string"))
+print(Solution().fibonacci("some string"))
 
 
