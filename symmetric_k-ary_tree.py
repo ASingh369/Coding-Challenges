@@ -15,9 +15,22 @@ class Node():
     self.value = value
     self.children = children
 
+def are_mirror(root1, root2):
+  if root1.value != root2.value:
+    return False
+  if len(root1.children) != len(root2.children):
+    return False
+  
+  for i in range(len(root1.children)):
+    if not are_mirror(root1.children[i], root2.children[len(root1.children)-i-1]):
+      return False
+
+  return True
+
 def is_symmetric(root):
-  # Fill this in.
-  pass
+  if len(root.children) != 2:
+    return False
+  return are_mirror(root.children[0], root.children[1])
 
 tree = Node(4)
 tree.children = [Node(3), Node(3)]
