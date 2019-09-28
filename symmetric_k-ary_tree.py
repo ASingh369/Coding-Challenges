@@ -38,6 +38,7 @@ def is_symmetric(root):
     for child in reversed(right.children):
       right_queue.put(child)
 
+  # In case root has odd number of children
   if root_children%2 != 0:
     return is_symmetric(root.children[root_children//2])
 
