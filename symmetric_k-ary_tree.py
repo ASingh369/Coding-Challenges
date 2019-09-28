@@ -10,43 +10,42 @@ Here's an example of a symmetrical k-ary tree.
 Given a k-ary tree, figure out if the tree is symmetrical.
 """
 
+import queue
+
 class Node():
   def __init__(self, value, children=[]):
     self.value = value
     self.children = children
 
-def are_mirror(root1, root2):
-  if root1.value != root2.value:
-    print(root1.value, root2.value)
+def is_symmetric(root):
+  root_children = len(root.children)
+  if root_children is 0:
+    return True
 
-    return False
-  if len(root1.children) != len(root2.children):
-    print(2)
-    return False
-  
-  for i in range(len(root1.children)):
-    if not are_mirror(root1.children[i], root2.children[len(root1.children)-i-1]):
-      print(3)
+  left_queue = queue.Queue()
+  right_queue = queue.Queue()
+
+  for i in range(root_children//2):
+    left_queue.put(root.children[i]); right_queue.put(root.children[root_children-i-1])
+
+  while left_queue.qsize() > 0 and right_queue.qsize() > 0:
+    left = left_queue.get(); right = right_queue.get()
+    if left.value != right.value:
       return False
+    for child in left.children:
+      left_queue.put(child)
+
+    for child in reversed(right.children):
+      right_queue.put(child)
+
+  if root_children%2 != 0:
+    return is_symmetric(root.children[root_children//2])
 
   return True
 
-def is_symmetric(root):
-  if len(root.children)%2 == 0:
-    for i in range(len(root.children)//2):
-      if not are_mirror(root.children[i], root.children[len(root.children)-i-1]):
-        print(4)
-        return False
-    return True
-  else:
-    for i in range(len(root.children)//2):
-      if not are_mirror(root.children[i], root.children[len(root.children)-i-1]):
-        print(root.value)
-        return False
-    return is_symmetric(root.children[len(root.children)//2 + 1])
-
-  return are_mirror(root.children[0], root.children[1])
-
+'''
+Test Cases
+'''
 tree = Node(4)
 tree.children = [Node(3), Node(3)]
 tree.children[0].children = [Node(9), Node(4), Node(1)]
@@ -57,6 +56,10 @@ print(is_symmetric(tree))
 tree2 = Node(1)
 tree2.children = [Node(2), Node(3), Node(2)]
 tree2.children[0].children = [Node(9), Node(4), Node(1)]
+tree2.children[1].children = [Node(2), Node(2)]
 tree2.children[2].children = [Node(1), Node(4), Node(9)]
 
 print(is_symmetric(tree2))
+
+tree3 = Node(3)
+print(is_symmetric(tree3))
