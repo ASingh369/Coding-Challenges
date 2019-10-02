@@ -8,9 +8,28 @@ class Node:
     self.left = None
     self.right = None
 
-def maxPathSum(root):
-    pass
-
+def findMaxUtil(root): 
+      
+    if root is None: 
+        return 0 
+  
+    l = findMaxUtil(root.left) 
+    r = findMaxUtil(root.right) 
+      
+    max_single = max(max(l, r) + root.val, root.val) 
+      
+    max_top = max(max_single, l+r+ root.val) 
+  
+    findMaxUtil.res = max(findMaxUtil.res, max_top)  
+  
+    return max_single 
+  
+def maxPathSum(root): 
+      
+    findMaxUtil.res = float("-inf") 
+      
+    findMaxUtil(root) 
+    return findMaxUtil.res 
 
 # (* denotes the max path)
 #       *10
@@ -28,6 +47,6 @@ root.left.right = Node(1)
 root.right.right = Node(-25)
 root.right.right.left = Node(3)
 root.right.right.right = Node(4)
-print maxPathSum(root)
+print(maxPathSum(root))
 # 42
 
