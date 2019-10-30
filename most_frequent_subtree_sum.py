@@ -19,9 +19,28 @@ class Node():
     self.left = left
     self.right = right
 
+def replace_with_sum(root):
+  if root.left == None and root.right == None:
+    pass
+  else:
+    replace_with_sum(root.left)
+    replace_with_sum(root.right)
+    if root.left == None and root.right != None:
+      root.val = root.val + root.right.val 
+    elif root.right == None and root.left != None:
+      root.val = root.val + root.left.val 
+    else:
+      root.val = root.val + root.left.val + root.right.val
+
+
+
 def most_freq_subtree_sum(root):
-  # fill this in.
-  pass
+  # replace all root nodes with sum
+  replace_with_sum(root)
+
+  # find most repeating node
+
+
 
 root = Node(3, Node(1), Node(-3))
 print(most_freq_subtree_sum(root))
