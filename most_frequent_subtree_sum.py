@@ -33,13 +33,45 @@ def replace_with_sum(root):
       root.val = root.val + root.left.val + root.right.val
 
 
+def most_repeating_node(root):
+  count_arr = []
+  stack = []
+  while True:
+    if root is not None:
+      stack.append(root)
+      root = root.left
+    elif stack:
+      root = stack.pop()
+      already_exists = False
+      for i in count_arr:
+        if i[0] == root.val:
+          already_exists = True
+          i[1] = i[1] + 1
+      
+      if not already_exists:
+        count_arr.append([root.val, 1])
+
+      root = root.right
+    else:
+      break
+
+  if count_arr:
+    maximum = count_arr[0]
+    for i in count_arr:
+      if i[1] > maximum[1]:
+        maximum = i
+    return maximum[0]
+
+
 
 def most_freq_subtree_sum(root):
   # replace all root nodes with sum
   replace_with_sum(root)
 
   # find most repeating node
+  output = most_repeating_node(root)
 
+  return output
 
 
 root = Node(3, Node(1), Node(-3))
