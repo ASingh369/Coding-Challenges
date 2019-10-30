@@ -6,7 +6,7 @@ A chess board is an 8x8 grid. Given a knight at any position (x, y) and a number
 Check if new location is inside the board
 """
 def new_location(x, y):
-  if x >= 0 and y >= 0 and x <= 8 and y <= 8:
+  if x >= 0 and y >= 0 and x <= 8 and y < 8:
     return True
   return False
 
