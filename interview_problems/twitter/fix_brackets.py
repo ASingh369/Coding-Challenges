@@ -11,8 +11,19 @@ The fixed string could either be ()() by deleting the first bracket, or (()()) b
 """
 
 def fix_brackets(s):
-  # Fill this in.
-  pass
+  result = 0
+  stack = []
+  for char in s:
+    if char == '(':
+      stack.append(char)
+    else:
+      if len(stack) == 0 or stack.pop() != '(':
+        result = result + 1
+  
+  result = result + len(stack)
+  return result
+
 
 print(fix_brackets('(()()'))
 # 1
+print(fix_brackets(')(()()))'))
