@@ -34,7 +34,7 @@ def replace_with_sum(root):
 
 
 def most_repeating_node(root):
-  count_arr = []
+  count_dict = {}
   stack = []
   while True:
     if root is not None:
@@ -42,25 +42,17 @@ def most_repeating_node(root):
       root = root.left
     elif stack:
       root = stack.pop()
-      already_exists = False
-      for i in count_arr:
-        if i[0] == root.val:
-          already_exists = True
-          i[1] = i[1] + 1
-      
-      if not already_exists:
-        count_arr.append([root.val, 1])
 
+      if root.val in count_dict:
+        count_dict[root.val] = count_dict[root.val] + 1
+      else:
+        count_dict[root.val] = 1
       root = root.right
     else:
       break
 
-  if count_arr:
-    maximum = count_arr[0]
-    for i in count_arr:
-      if i[1] > maximum[1]:
-        maximum = i
-    return maximum[0]
+  # Find key with max value in dictonary
+  return max(count_dict, key=count_dict.get)
 
 
 
