@@ -18,10 +18,13 @@ class Node:
     return answer
 
 def create_height_balanced_bst(nums):
-  # Fill this in.
-  pass
+  if len(nums) > 0:
+    root = Node(nums[len(nums)//2], create_height_balanced_bst(nums[:len(nums)//2]), create_height_balanced_bst(nums[(len(nums)//2)+1:]))
+    return root
 
-tree = create_height_balanced_bst([1, 2, 3, 4, 5, 6, 7, 8])
+tree = create_height_balanced_bst([1, 2, 3, 4, 5, 6, 7, 8, 9])
+print(tree)
+
 # 53214768
 #  (pre-order traversal)
 #       5
