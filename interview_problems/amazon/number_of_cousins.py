@@ -11,7 +11,25 @@ class Node(object):
     self.right = right
 
 class Solution(object):
+
+  def get_level(self, root, val, level):
+    if root == None:
+      return
+    if root.value == val:
+      return level
+    else:
+      _level = self.get_level(root.left, val, level+1)
+      if _level == None:
+        _level = self.get_level(root.right, val, level+1)
+      return _level
+
+  def print_level_cousins(self, tree, val, level):
+    pass
+  
+
   def list_cousins(self, tree, val):
+    level = self.get_level(tree, val, 1)
+    print(level)
     pass
 
 #     1
