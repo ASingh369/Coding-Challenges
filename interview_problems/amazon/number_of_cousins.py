@@ -24,12 +24,27 @@ class Solution(object):
       return _level
 
   def print_level_cousins(self, tree, val, level):
-    pass
+    if (tree == None or level < 2):  
+        return
+  
+    if (level == 2): 
+        if (tree.left == val or
+            tree.right == val):  
+            return
+        if (tree.left):  
+            print(tree.left.value, end = " ")  
+        if (tree.right): 
+            print(tree.right.value, end = " ") 
+  
+    # Recur for left and right subtrees  
+    elif (level > 2): 
+        self.print_level_cousins(tree.left, val, level - 1)  
+        self.print_level_cousins(tree.right, val, level - 1) 
   
 
   def list_cousins(self, tree, val):
     level = self.get_level(tree, val, 1)
-    print(level)
+    self.print_level_cousins(tree, val, level)
     pass
 
 #     1
@@ -44,5 +59,5 @@ root.left.right = Node(6)
 root.right = Node(3)
 root.right.right = Node(5)
 
-print(Solution().list_cousins(root, 5))
+Solution().list_cousins(root, 5)
 # [4, 6]
