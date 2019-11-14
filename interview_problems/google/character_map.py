@@ -11,7 +11,18 @@ Ouput: False # a can't map to d and e
 
 def has_character_map(str1, str2):
   # Fill this in.
-  pass
+  if len(str1) != len(str2):
+    return False
+
+  map_dict = {}
+
+  for i in range(len(str1)):
+    if str1[i] in map_dict:
+      if not map_dict[str1[i]] == str2[i]:
+        return False
+    else:
+      map_dict[str1[i]] = str2[i]
+  return True
 
 print(has_character_map('abc', 'def'))
 # True
