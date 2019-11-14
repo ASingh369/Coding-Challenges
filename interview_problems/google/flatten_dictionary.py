@@ -19,9 +19,19 @@ Output: {
 You can assume there will be no arrays, and all keys will be strings.
 """
 
-def flatten_dictionary(d):
-  # Fill this in.
-  pass
+import queue
+
+def flatten_dictionary(d, base=''):
+  flat_dict = {}
+  
+  for key in d:
+    new_key = base + '.' + key if base else key
+    if isinstance(d[key], dict):
+      flat_dict.update(flatten_dictionary(d[key], new_key))
+    else:
+      flat_dict[new_key] = d[key]
+  return flat_dict
+  
 
 d = {
     'a': 1,
